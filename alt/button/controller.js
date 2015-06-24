@@ -1,9 +1,9 @@
 define([
-    'alt/component/button/service'
+    'alt/button/service'
 ], function(){
     return alt.component({
         name: 'prototyperFormButton',
-        templateUrl: 'component/button/view.html',
+        templateUrl: 'alt/button/view.html',
         transclude: true,
         scope: {
             config: '=?prototyperFormButton',

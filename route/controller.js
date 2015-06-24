@@ -1,6 +1,6 @@
 define([
     'asset/js/require/json!prototype.json',
-    'component/button/controller'
+    'alt/button/controller'
 ], function(prototype){
     return ['$scope', '$routeParams', '$log', '$location', '$button', function($scope, $routeParams, $log, $location, $button){
         // try to import from prototype.json

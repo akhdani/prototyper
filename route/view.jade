@@ -11,7 +11,7 @@ div(class="container")
     div(class="row")
         div(class="span2", data-ng-repeat="(pageid, page) in prototype.page")
             div(class="span12")
-                img(data-ng-if="page.screenshot", src="{{ page.screenshot }}", style="border: solid 1px; width: 100%; min-height: 98px;")
+                img(data-ng-if="page.screenshot", data-ng-src="{{ page.screenshot }}", style="border: solid 1px; width: 100%; min-height: 98px;")
                 img(data-ng-if="!page.screenshot", style="border: solid 1px; width: 100%; min-height: 98px;")
             div(class="span12")
                 a(data-ng-href="{{ alt.baseUrl + 'viewer?pageid=' + pageid }}") {{ pageid }}
