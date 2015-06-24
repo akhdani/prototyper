@@ -1,0 +1,8 @@
+ul(class="nav")
+    li(class="dropdown")
+        a(href="javascript:;", data-ng-click="menu.submenu = menu.submenu == 'administrator' ? '' : 'administrator'; menu.subsubmenu = ''", data-toggle="dropdown")
+            | Administrator
+            b(class="caret")
+        ul(class="dropdown-menu", data-ng-show="menu.submenu == 'administrator'")
+            li(class="")
+                a(data-ng-click="menu.submenu = ''", data-ng-href="{{ alt.baseUrl }}user/list") User Management

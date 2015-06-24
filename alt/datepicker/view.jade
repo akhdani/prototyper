@@ -1,0 +1,9 @@
+input(data-ng-if="setting.date.type == 'text'", style="width: 55px;", type="number", data-ng-model="date.date", data-ng-required="setting.required", data-ng-show="setting.show && setting.date.show")
+select(data-ng-if="setting.date.type == 'dropdown'", style="width: 55px;", data-ng-model="date.date", data-ng-options="k as v for (k,v) in dropdown.date", data-ng-required="setting.required", data-ng-disabled="setting.disabled || setting.date.disabled", data-ng-show="setting.show && setting.date.show")
+| &nbsp;
+input(data-ng-if="setting.month.type == 'text'", style="width: 115px;", type="number", data-ng-model="date.month", data-ng-required="setting.required", data-ng-show="setting.show && setting.month.show")
+select(data-ng-if="setting.month.type == 'dropdown'", style="width: 115px;", data-ng-model="date.month", data-ng-options="k as v for (k,v) in dropdown.month", data-ng-required="setting.required", data-ng-disabled="setting.disabled || setting.month.disabled", data-ng-show="setting.show && setting.month.show")
+| &nbsp;
+input(data-ng-if="setting.year.type == 'text'", style="width: 75px;", type="number", data-ng-model="date.year", data-ng-required="setting.required", data-ng-show="setting.show && setting.year.show")
+select(data-ng-if="setting.year.type == 'dropdown'", style="width: 75px;", data-ng-model="date.year", data-ng-options="k as v for (k,v) in dropdown.year", data-ng-required="setting.required", data-ng-disabled="setting.disabled || setting.year.disabled", data-ng-show="setting.show && setting.year.show")
+div(data-alt-button="clear", data-ng-if="setting.showclear && !setting.disabled")

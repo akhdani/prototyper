@@ -1,0 +1,13 @@
+div(class="panel", style="background-color: {{detail.background}}")
+    div(class="panel-heading")
+        div(class="panel-title")
+            span(class="panel-title") {{detail.title}}
+        div(class="panel-controls")
+            ul
+                li(data-ng-repeat="c in detail.controls")
+                    a(data-ng-click="c.onclick()")
+                        i(class="{{c.icon}}")
+    div(class="panel-body")
+        div(data-ng-transclude)
+        div(class="panel-icon-bg {{detail.iconbg.class}}", style="{{detail.iconbg.style}}")
+            i(class="{{detail.iconbg.icon}}", style="color: {{detail.iconbg.color}}")

@@ -1,0 +1,25 @@
+style.
+    .selected {
+        background-color: rgba(1, 1, 1, 0.3);
+    }
+
+div(class="panel")
+    div(class="panel-heading")
+        div(class="panel-title")
+            span(class="panel-title", style="font-size: 20px;")
+                | {{setting.title}}
+        div(class="panel-controls")
+            div(class="input-prepend input-append", style="text-align: right; margin-bottom: 0;")
+                span(class="add-on") Halaman
+                input(type='text', class='span2', style='text-align:right;', data-ng-model="setting.currentpage")
+                span(class="add-on") dari {{ setting.pages.length }}
+            | &nbsp;&nbsp;
+            div(class="btn-group", data-ng-repeat="b in buttons")
+                div(data-alt-button="b")
+    div(class="panel-body", style="margin-top: 20px;")
+        div(style="width: 15%; max-height: {{ setting.maxheight }}; vertical-align: top; display: inline-block; overflow-y: auto;")
+            div(data-ng-repeat="(i, page) in setting.pages", style="padding: 5px; vertical-align: middle; cursor: pointer;", data-ng-class="{true: 'selected'}[i == setting.currentpage-1]", data-ng-click="setting.currentpage = i+1;")
+                canvas(id="{{ setting.thumbnailid + i }}", style="border: solid 1px;")
+        div(style="width: 85%; display: inline-block;")
+            div(data-ng-repeat="(i, page) in setting.pages", data-ng-show="(i+1) == setting.currentpage", style="width: 100%; max-height: {{ setting.maxheight }}; overflow: scroll;")
+                canvas(id="{{ setting.canvasid + i }}")

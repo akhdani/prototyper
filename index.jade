@@ -1,0 +1,49 @@
+doctype html
+html(id="ng-app", ng-app="Alt", xmlns:ng="http://angularjs.org")
+    head(lang="en")
+        meta(charset="utf-8")
+        title
+        link(type="text/css", rel="stylesheet", media="all", href="asset/css/roboto.min.css")
+        link(type="text/css", rel="stylesheet", media="all", href="asset/css/bootstrap.min.css")
+        link(type="text/css", rel="stylesheet", media="all", href="asset/css/bootstrap-responsive.min.css")
+        link(type="text/css", rel="stylesheet", media="all", href="asset/css/font-awesome.min.css")
+        link(type="text/css", rel="stylesheet", media="all", href="asset/css/style.min.css")
+        link(rel="shortcut icon", href="favicon.ico")
+        style(type="text/css") .ng-cloak{ display: none !important; }
+    body
+        div(class="navbar navbar-inverse navbar-fixed-top ng-cloak")
+            div(class="navbar-inner")
+                div(class="container-fluid")
+                    div(class="nav-collapse collapse", data-ng-include="menuLocation")
+                    div(class="modal-backdrop fade in", style="opacity: 0; z-index: 999; -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)'; filter: alpha(opacity=0);", data-ng-show="menu.submenu != ''", data-ng-click="menu.submenu = ''")
+
+        div(class="container-fluid")
+            div(style="position:absolute; top: 40px; right: 10px; width: 30%; z-index: 999;")
+                div(data-ng-repeat="toast in $toast.items.slice().reverse()")
+                    div(data-alt-toast="toast")
+                        div(data-ng-bind-html-unsafe="toast.message")
+
+            div(style="position:fixed; top: 40px; left: 30%; width: 40%; z-index: 998;")
+                div(data-ng-repeat="alert in $alert.items")
+                    div(data-alt-alert="alert")
+                        div(data-ng-bind-html-unsafe="alert.message")
+
+            div(class="row-fluid")
+                div(data-ng-view)
+
+        script(type="text/javascript").
+            if(!window.atob && !window.btoa){
+                var s = document.createElement('script');
+                s.setAttribute('type', 'text/javascript');
+                s.setAttribute('src', 'asset/js/base64.js');
+                document.getElementsByTagName('body')[0].appendChild(s);
+            }
+
+        script(type="text/javascript", src="asset/js/store.min.js")
+        script(type="text/javascript", src="asset/js/require.min.js")
+        script(type="text/javascript", src="asset/js/angular.js")
+        script(type="text/javascript", src="asset/js/angular-jwt.min.js")
+        script(type="text/javascript", src="alt/alt.min.js")
+        script(type="text/javascript", src="config.js")
+        script(type="text/javascript", src="lang.js")
+        script(type="text/javascript") requirejs.config({useMinified: alt.useMinified, urlArgs: alt.urlArgs});

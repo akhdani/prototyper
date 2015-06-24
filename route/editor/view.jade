@@ -1,0 +1,13 @@
+div(class="container")
+    div(class="row")
+        div(class="span12")
+            div(data-html="viewer")
+    div(class="row")
+        div(class="span6")
+            div(data-html="wireframe", data-wireframe="true", data-droppable="true", data-on-drop="$scope.dropped(drag, drop, data, target)")
+        div(class="span6")
+            div(data-draggable="true", data-text="alt-fusioncharts")
+                | {{ definition.component['alt-fusioncharts'].label }}
+            | {{ viewer.text }}
+
+
