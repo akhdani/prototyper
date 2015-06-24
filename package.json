@@ -1,0 +1,22 @@
+{
+  "name": "Prototyper",
+  "version": "1.0.0",
+  "description": "Create UI Prototyper",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niwasmala/prototyper.git"
+  },
+  "keywords": [
+    "Prototyper",
+    "Mockup"
+  ],
+  "author": "Nicky Irawan <niwasmala@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niwasmala/prototyper/issues"
+  },
+  "homepage": "https://github.com/niwasmala/prototyper",
+  "dependencies": {
+    "express": "^4.12.4"
+  }
+}
