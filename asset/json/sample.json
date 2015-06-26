@@ -1,0 +1,68 @@
+{
+  "page": "hello_world",
+  "menus": {
+    "menu1": [
+      {
+        "id": "1",
+        "label": "Administrator",
+        "page": "",
+        "submenu": [
+          {
+            "id": "1.1",
+            "label": "User Management",
+            "page": "hello_world",
+            "submenu": []
+          },
+          {
+            "id": "1.1.1",
+            "label": "Tes",
+            "page": "",
+            "submenu": [
+              {
+                "id": "1.1.1.1",
+                "label": "Tes 2",
+                "page": "hello_world",
+                "submenu": []
+              },
+              {
+                "id": "1.1.1.1.1",
+                "label": "Tes 3",
+                "page": "",
+                "submenu": [
+                  {
+                    "id": "1.1.1.1.1.1",
+                    "label": "Tes 4",
+                    "page": "hello_world",
+                    "submenu": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "menu2": [
+      {
+        "id": "1",
+        "label": "Tes lagi",
+        "page": "chart",
+        "submenu": []
+      }
+    ]
+  },
+  "pages": {
+    "hello_world": {
+      "menu": "",
+      "dependency": [],
+      "html": "<div class='container'><h1>Hello world</h1></div>"
+    },
+    "chart": {
+      "menu": "menu1",
+      "dependency": [
+        "component/alt/fusioncharts/controller"
+      ],
+      "html": "<div class='container'><div class='row' data-alt-droppable='wireframe' data-on-drop='$scope.dropped(drag, drop, data, target)' data-on-drag-enter='$scope.dragenter(e, target, targetid)' data-on-drag-leave='$scope.dragleave(e, target, targetid)'><div class='span12' data-alt-droppable='true' data-on-drop='$scope.dropped(drag, drop, data, target)' data-on-drag-enter='$scope.dragenter(e, target, targetid)' data-on-drag-leave='$scope.dragleave(e, target, targetid)'><h1>Testing chart</h1></div></div><div class='row' data-alt-droppable='true' data-on-drop='$scope.dropped(drag, drop, data, target)' data-on-drag-enter='$scope.dragenter(e, target, targetid)' data-on-drag-leave='$scope.dragleave(e, target, targetid)'><div class='span12' data-alt-droppable='true' data-on-drop='$scope.dropped(drag, drop, data, target)' data-on-drag-enter='$scope.dragenter(e, target, targetid)' data-on-drag-leave='$scope.dragleave(e, target, targetid)'><div data-alt-fusioncharts data-type='pie2d' data-height='400px' data-source=\"{data: [{label:'a', value: 10},{label:'b', value: 20}]}\"></div></div></div></div>"
+    }
+  }
+}

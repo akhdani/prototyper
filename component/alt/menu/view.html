@@ -1,0 +1,53 @@
+<style data-ng-if="setting.menu.length > 0">
+    body{
+        padding-top: 40px;;
+    }
+</style>
+<div data-ng-if="setting.menu.length > 0" class="navbar {{ setting.class }}">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <ul data-ng-repeat="item in setting.menu" class="nav">
+                <li class="dropdown">
+                    <a data-ng-if="item.page == ''" href="javascript:;" data-ng-click="menu.submenu = menu.submenu == item.id ? '' : item.id; menu.subsubmenu = ''" data-toggle="dropdown">
+                        {{ item.label }}
+                        <b class="caret"></b>
+                    </a>
+                    <a data-ng-if="item.page != ''" data-ng-click="menu.submenu = ''" data-ng-href="{{ alt.baseUrl }}showcase?app={{ alt.application }}&page={{ item.page }}">
+                        {{ item.label }}
+                    </a>
+
+                    <ul data-ng-show="menu.submenu.indexOf(item.id) == 0" data-ng-if="item.submenu.length > 0" class="dropdown-menu">
+                        <li data-ng-class="{true: 'dropdown-submenu', false: ''}[item2.submenu.length > 0]" data-ng-repeat="item2 in item.submenu">
+                            <a data-ng-if="item2.page == ''" data-ng-click="menu.submenu = menu.submenu == item.id ? item2.id : item.id" href="javascript:;">
+                                {{ item2.label }}
+                            </a>
+                            <a data-ng-if="item2.page != ''" data-ng-click="menu.submenu = ''" data-ng-href="{{ alt.baseUrl }}showcase?app={{ alt.application }}&page={{ item2.page }}">
+                                {{ item2.label }}
+                            </a>
+
+                            <ul data-ng-show="menu.submenu.indexOf(item2.id) == 0" data-ng-if="item2.submenu.length > 0" class="dropdown-menu">
+                                <li data-ng-class="{true: 'dropdown-submenu', false: ''}[item3.submenu.length > 0]" data-ng-repeat="item3 in item2.submenu">
+                                    <a data-ng-if="item3.page == ''" data-ng-click="menu.submenu = menu.submenu == item2.id ? item3.id : item2.id" href="javascript:;">
+                                        {{ item3.label }}
+                                    </a>
+                                    <a data-ng-if="item3.page != ''" data-ng-click="menu.submenu = ''" data-ng-href="{{ alt.baseUrl }}showcase?app={{ alt.application }}&page={{ item3.page }}">
+                                        {{ item3.label }}
+                                    </a>
+
+                                    <ul data-ng-show="menu.submenu.indexOf(item3.id) == 0" data-ng-if="item3.submenu.length > 0" class="dropdown-menu">
+                                        <li data-ng-class="{true: 'dropdown-submenu', false: ''}[item4.submenu.length > 0]" data-ng-repeat="item4 in item3.submenu">
+                                            <a data-ng-click="menu.submenu = ''" data-ng-href="{{ alt.baseUrl }}showcase?app={{ alt.application }}&page={{ item4.page }}">
+                                                {{ item4.label }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="opacity: 0; z-index: 999; -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)'; filter: alpha(opacity=0);" data-ng-show="menu.submenu != ''" data-ng-click="menu.submenu = ''" class="modal-backdrop fade in"></div>

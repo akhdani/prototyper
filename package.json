@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/niwasmala/prototyper",
   "dependencies": {
-    "express": "^4.12.4"
+    "express": "^4.12.4",
+    "formidable": "^1.0.17"
   }
 }

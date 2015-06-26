@@ -2053,9 +2053,11 @@ var requirejs, require, define;
                 deps[i].indexOf('.json') == -1 &&
                 deps[i].indexOf('.min') == -1 &&
                 (
-                    deps[i].indexOf('component/') == 0 ||
-                    deps[i].indexOf('asset/') == 0 ||
-                    deps[i].indexOf('route/') == 0
+                    deps[i].indexOf('controller') >= 0 ||
+                    deps[i].indexOf('service') >= 0 ||
+                    deps[i].indexOf('dbo') >= 0 ||
+                    deps[i].indexOf('asset') == 0 ||
+                    deps[i].indexOf('route') == 0
                 )
             ){
                 deps[i] += ".min";

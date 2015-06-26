@@ -1,14 +1,11 @@
 define([
-    'asset/js/require/json!prototype.json',
-    'alt/button/controller'
-], function(prototype){
-    return ['$scope', '$routeParams', '$log', '$location', '$button', function($scope, $routeParams, $log, $location, $button){
-        // try to import from prototype.json
-        $scope.prototype = alt.extend(store.get(alt.application), prototype);
-        if(prototype){
-            store.set(alt.application, $scope.prototype);
-            //$location.path('/page').search({pageid: prototype.default_page});
-        }
+    'component/alt/blink/controller',
+    'component/alt/button/controller'
+], function(){
+    return ['$scope', '$routeParams', '$log', '$location', '$button', '$storage', function($scope, $routeParams, $log, $location, $button, $storage){
+        $storage(alt.application).get().then(function(response){
+            $scope.prototype = response.data
+        });
 
         $scope.export = $button('export', {
             style: 'display: inline-block;',
