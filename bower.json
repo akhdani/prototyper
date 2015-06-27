@@ -9,7 +9,8 @@
     "accounting": "~0.3.2",
     "requirejs-plugins": "~1.0.3",
     "amcharts": "~3.14.3",
-    "codemirror": "~5.3.0"
+    "codemirror": "~5.3.0",
+    "angular-json-editor": "~0.1.8"
   },
   "devDependencies": {
     "bootstrap2.3.2": "~2.3.2",

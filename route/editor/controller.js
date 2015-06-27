@@ -12,7 +12,7 @@ define([
             $scope.$alert = $alert;
 
             // application menu
-            $scope.menu = {
+            $scope.appmenu = {
                 brand: 'Prototyper',
                 menu: [{}],
                 link: function(type, item){
@@ -39,6 +39,7 @@ define([
             if($routeParams.app){
                 $storage(alt.application).get().then(function(response){
                     $scope.application = response.data;
+                    $scope.menu.show.brand = $scope.application.name;
                 });
             }
 
@@ -87,6 +88,33 @@ define([
                         });
                     }
                 })
+            };
+
+            // step menu
+            $scope.menu = {
+                current: '',
+                show: {
+                    brand: 'Menu',
+                    class: 'navbar-inverse',
+                    menu: [{}],
+                    link: function(type, item){
+                        var link = 'showcase?app=' + alt.application;
+                        switch(type){
+                            case 'menu':
+                                link += '&page=' + item.page;
+                                break;
+                        }
+
+                        return alt.baseUrl + link;
+                    }
+                },
+                add: function(){
+
+                },
+                choose: function(menu){
+                    $scope.menu.current = menu;
+                    $scope.menu.show.menu = $scope.application.menus[$scope.menu.current];
+                }
             };
 
             /*$scope.export = $button('export', {

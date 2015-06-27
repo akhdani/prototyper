@@ -5,7 +5,7 @@
     }
 </style>
 
-<div data-alt-menu="menu"></div>
+<div data-alt-menu="appmenu"></div>
 
 <div style="position:fixed; top: 40px; left: 30%; width: 40%; z-index: 998;">
     <div data-ng-repeat="alert in $alert.items">
@@ -81,7 +81,36 @@
         </form>
     </section>
     <section data-ng-show="step == 'menu'">
-
+        <form class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h1>
+                        Well done! Now lets create some menu(s) for {{ application.name }}!
+                    </h1>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span3 bs-docs-sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav affix-top">
+                        <li>
+                            <a>Available Menu(s)</a>
+                        </li>
+                        <li data-ng-repeat="(title, item) in application.menus">
+                            <a data-ng-click="menu.choose(title)" style="padding-left: 45px; cursor: pointer;">
+                                {{ title }}
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-ng-click="menu.add()">Tambah Menu</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="span9" style="padding-top: 30px;">
+                    <div data-alt-menu="menu.show"></div>
+                </div>
+            </div>
+        </form>
     </section>
     <section data-ng-show="step == 'page'">
 
