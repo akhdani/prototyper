@@ -2,29 +2,31 @@ var express = require("express"),
     formidable = require('formidable'),
     fs = require('fs'),
     path = require('path'),
-    util = require('util'),
     app = express(),
     port = process.env.PORT || 8080;
 
 // Set static folder
 app.use(express.static("./"));
 
-// Set showcase applicationss
-app.get('/showcases', function(req, res, next){
-
+// CORS Header
+app.use(function(req, res, next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 // Set upload route
-app.post('/upload', function(req, res, next){
+app.post('/api/upload', function(req, res, next){
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
         var old_path = files.file.path,
             file_ext = files.file.name.split('.').pop(),
             index = old_path.lastIndexOf('/') + 1,
             file_name = old_path.substr(index),
-            new_path = path.join(process.env.PWD, '/asset/json/', fields.appid + '.' + file_ext);
+            new_path = path.join(process.env.PWD, '/app/', fields.app + '/prototype.json');
 
         if(file_ext != 'json'){
+            fs.unlink(old_path);
             res.json({code:-1, message: 'Only json files allowed'});
             return;
         }
@@ -35,19 +37,26 @@ app.post('/upload', function(req, res, next){
                 return;
             }
 
-            fs.writeFile(new_path, data, function(err) {
+            fs.mkdir(path.join(process.env.PWD, '/app/', fields.app), function(err){
                 if(err){
                     res.json(err);
                     return;
                 }
 
-                fs.unlink(old_path, function(err) {
+                fs.writeFile(new_path, data, function(err) {
                     if(err){
                         res.json(err);
                         return;
                     }
 
-                    res.json({code: 0, message: 'File ' + file_name + '.' + file_ext + ' uploaded!'});
+                    fs.unlink(old_path, function(err) {
+                        if(err){
+                            res.json(err);
+                            return;
+                        }
+
+                        res.json({code: 0, message: 'File ' + file_name + '.' + file_ext + ' uploaded!'});
+                    });
                 });
             });
         });

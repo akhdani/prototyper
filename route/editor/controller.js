@@ -1,81 +1,102 @@
 define([
-    'json!asset/prototype.json',
-    'component/alt/definition',
-    'component/alt/draggable/controller',
-    'component/alt/droppable/controller',
-    'component/alt/html/controller',
-    'asset/js/html2canvas'
-], function(prototype, definition){
-    return ['$scope', '$routeParams', '$log', '$timeout', function($scope, $routeParams, $log, $timeout){
-        $scope.prototype = alt.extend(store.get(alt.application), prototype);
-        $scope.definition = definition;
-        $scope.wireframe = {};
-        $scope.viewer = {};
+    'json!app/list.json',
+    'component/alt/alert/controller',
+    'component/alt/blink/controller',
+    'component/alt/button/controller',
+    'component/alt/file/controller',
+    'component/alt/menu/controller'
+], function(apps){
+    return [
+        '$scope', '$routeParams', '$log', '$alert', '$button', '$location', '$storage', '$api', '$timeout',
+        function($scope, $routeParams, $log, $alert, $button, $location, $storage, $api, $timeout){
+            $scope.$alert = $alert;
 
-        $scope.dropped = function(drag, drop, data, target) {
-            console.log('dropped');
-            var component = definition.component[data];
-            var html = '<div data-draggable="true" data-' + data + "='" + angular.toJson(component.config) + "'><span style='border: dashed 1px; min-height: 50px;'>" + component.label + "</span></div>";
-            target.replaceWith(angular.element(html));
+            // application menu
+            $scope.menu = {
+                brand: 'Prototyper',
+                menu: [{}],
+                link: function(type, item){
+                    var link = '';
+                    switch(type){
+                        case 'menu':
+                            link = item.page;
+                            break;
+                    }
 
-            $scope.wireframe.text = drop.html();
-            $scope.$apply();
-        };
-
-        $scope.dragenter = function(e, target, targetid){
-            console.log('dragenter', e, target, targetid);
-            var etarget = angular.element(e.target);
-            if((etarget.attr('class') || '').indexOf('span') > -1){
-                etarget.append('<div id="' + targetid + '" data-droppable="true" style="border: dashed 1px; background-color: grey; min-height: 30px;">Put component here</div>');
-                target = angular.element(document.getElementById(targetid));
-            }
-        };
-
-        $scope.dragleave = function(e, target, targetid){
-            var etarget = angular.element(e.target);
-            if((etarget.attr('class') || '').indexOf('span') == -1){
-                if(target) target.remove();
-                target = null;
-            }
-        };
-
-        $scope.currentPage = $scope.prototype.page[$routeParams.pageid] || {};
-        $scope.currentPage.dependency = $scope.currentPage.dependency || [];
-
-        require($scope.currentPage.dependency, function(){
-            if($scope.currentPage.script){
-                try{
-                    (function($scope){ eval($scope.currentPage.script) })($scope);
-                }catch(e){
-                    alert('Ada error pada script page! \n' + e.stack);
+                    return alt.baseUrl + link;
                 }
+            };
+
+            // application model
+            $scope.application = {
+                id: '',
+                name: '',
+                page: '',
+                menus: {},
+                pages: {}
+            };
+
+            if($routeParams.app){
+                $storage(alt.application).get().then(function(response){
+                    $scope.application = response.data;
+                });
             }
 
-            $scope.currentPage.html = $scope.currentPage.html || '<h1>No page detected</h1>';
-            $scope.currentPage.script = $scope.currentPage.script || '';
-            $scope.currentPage.screenshot = $scope.currentPage.screenshot || '';
-            $scope.wireframe.text = $scope.currentPage.html;
-            $scope.viewer.text = $scope.currentPage.html;
-            $scope.$apply();
+            // step to create application
+            $scope.step = $routeParams.step || 'welcome';
 
-            $scope.$watch('wireframe.text', function(newvalue, oldvalue){
-                $log.debug($scope.wireframe.text);
-                $scope.currentPage.html = $scope.wireframe.text;
-                $scope.viewer.text = $scope.wireframe.text;
-            }, true);
+            // step welcome
+            $scope.welcome = {
+                file: {
+                    model: null,
+                    accept: 'application/json',
+                    validate: function(file){
+                        if(file.type != 'application/json') $alert.add('Only json file allowed!', $alert.danger);
+                        return file.type == 'application/json';
+                    }
+                },
+                btncreate: $button('', {
+                    title: 'Create My Application!',
+                    onclick: function () {
+                        var isexist = false;
+                        angular.forEach(apps, function(val, key){
+                            isexist = val.id == $scope.application.id || isexist;
+                        });
 
+                        if(!isexist || (isexist && confirm('There is already exist application with id ' + $scope.application.id + '. Do you want to continue and edit previous application?'))){
+                            alt.application = $scope.application.id;
+                            delete $scope.application.id;
+                            delete $scope.application.file;
 
-            /*$timeout(function(){
-             html2canvas(document.body, {
-             onrendered: function(canvas) {
-             var screenshot = canvas.toDataURL();
-             if($scope.currentPage.screenshot != screenshot){
-             $scope.currentPage.screenshot = canvas.toDataURL();
-             store.set(alt.application, $scope.prototype);
-             }
-             }
-             });
-             }, 1500);*/
-        });
-    }];
+                            $storage(alt.application).save($scope.application).then(function(response){
+                                // change step by changing location
+                                $location.path('editor').search('step', 'menu').search('app', alt.application);
+                            });
+                        }
+                    }
+                }),
+                btnupload: $button('', {
+                    title: 'Upload My Application!',
+                    onclick: function () {
+                        // upload to server
+                        $api('api').connect('upload', {app: $scope.application.id, file: $scope.welcome.file.model}, {ismultipart: true}).then(function(response){
+                            // change step by changing location
+                            $location.path('editor').search('step', 'finish');
+                        }, function(error){
+                            $alert.add('Unable to upload to server', $alert.danger);
+                        });
+                    }
+                })
+            };
+
+            /*$scope.export = $button('export', {
+                style: 'display: inline-block;',
+                onclick: function(){
+                    var uri         = 'data:application/json;base64,';
+
+                    window.open(uri + window.btoa(angular.toJson($scope.prototype)), '_blank');
+                }
+            });*/
+        }
+    ];
 });

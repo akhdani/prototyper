@@ -1,50 +1,51 @@
 define([
-    'component/alt/button/controller'
+
 ], function(){
     return alt.component({
         name: 'altFile',
         templateUrl: 'component/alt/file/view.html',
         scope: {
-            file: '=?altFile',
-            setting: '=?'
+            setting: '=?altFile',
+            model: '=?',
+            show: '=?',
+            required: '=?',
+            disabled: '=?',
+            accept: '@?',
+            name: '@?',
+            validate: '&?'
         },
-        link: ['$scope', '$log', '$element', '$alert', '$validate', '$button', function($scope, $log, $element, $alert, $validate, $button){
-            $scope.setting      = alt.extend({
-                elementid: 'file' + $scope.$id,
-                show: true,
-                required: false,
-                disabled: false,
-                accept: "application/pdf",
-                'class': "",
-                style: {},
+        link: ['$scope', '$log', '$element', function($scope, $log, $element){
+            $scope.elementid = 'file' + $scope.$id;
+
+            $scope.setting = alt.extend({
+                required: $scope.required || false,
+                disabled: $scope.disabled || false,
+                accept: $scope.accept || "application/pdf",
+                name: $scope.name || $scope.elementid,
+                class: $scope.class || "",
+                style: $scope.style || "",
+                model: $scope.model || null,
+                validate: $scope.validate || function(file){
+                    return true;
+                },
 
                 clear: function(){
-                    $scope.setting.element.value = null;
+                    $scope.element.value = null;
                 },
 
                 // set image on change
                 onchange: function(element){
-                    if(typeof File === 'undefined' && typeof FileAPI !== 'undefined'){
-                        FileAPI.debug = true;
-                        var files = FileAPI.getFiles(angular.element($scope.setting.element)[0]);
-                        $scope.file = files[0];
-
-                        $scope.file.getAsBinary = angular.noop;
-                        FileAPI.readAsBinaryString($scope.file, function(event){
-                            if(event.type == 'load'){
-                                $scope.file.getAsBinary = function(){
-                                    return event.result;
-                                }
-                            }
-                        });
+                    var file = angular.element($scope.element)[0].files[0];
+                    if($scope.setting.validate(file)){
+                        $scope.setting.model = file;
+                        $scope.$apply();
                     }else{
-                        $scope.file = angular.element($scope.setting.element)[0].files[0];
+                        $scope.setting.clear();
                     }
-
-                    $scope.$apply();
                 }
             }, $scope.setting);
-            $scope.setting.element = angular.element($element).children()[0];
+
+            $scope.element = angular.element($element).children()[0];
         }]
     });
 });

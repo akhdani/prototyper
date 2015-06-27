@@ -1,6 +1,0 @@
-| &nbsp;&nbsp;
-input(data-ng-if="config.type == 'submit'", type="submit", data-ng-class="config.class || 'btn btn-primary'", value="{{ config.title }}", data-ng-click="config.click()", data-ng-disabled="config.disabled || config.isclicked")
-a(data-ng-if="config.type != 'submit'", data-ng-class="config.class || 'btn btn-primary'", type="button", title="{{ config.description }}", data-ng-click="config.click()", data-ng-href="{{ config.href }}", target="{{ config.target }}", data-ng-disabled="config.disabled || config.isclicked")
-    i(data-ng-class="config.icon")
-    span(data-ng-if="config.title != '' && config.icon != ''") &nbsp;
-    | {{ config.title }}

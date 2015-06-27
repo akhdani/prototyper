@@ -1,0 +1,32 @@
+[
+  {
+    "id": "sample",
+    "name": "Sample Application",
+    "description": "Sample application using many components",
+    "thumbnail": ""
+  },
+  {
+    "id": "bms",
+    "name": "Building Management System",
+    "description": "Building Management System",
+    "thumbnail": ""
+  },
+  {
+    "id": "pss",
+    "name": "Property Sales System",
+    "description": "Property Sales System",
+    "thumbnail": ""
+  },
+  {
+    "id": "sima",
+    "name": "Sistem Informasi Manajemen Aset",
+    "description": "Sistem Informasi Manajemen Aset",
+    "thumbnail": ""
+  },
+  {
+    "id": "hotel",
+    "name": "Hotel Management System",
+    "description": "Hotel Management System",
+    "thumbnail": ""
+  }
+]

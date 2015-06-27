@@ -28,13 +28,14 @@ define([
                         self.hide(i);
                     }
                 });
-                this.show(i);
+                return this.show(i);
             },
             hide: function(i){
                 if(this.items[i] && this.items[i].isshow){
                     this.items[i].isshow = false;
-                    delete this.items[i];
+                    this.items.splice(i, 1);
                 }
+                return this;
             },
             show: function(i){
                 var self = this;
@@ -44,12 +45,14 @@ define([
                         self.hide(i);
                     }, 5000);
                 }
+                return this;
             },
             check: function(){
                 for(var i=0; i<this.items.length; i++){
                     if(this.items[i] && this.items[i].skip > 0) this.items[i].skip--;
                     if(this.items[i]) this.show(i);
                 }
+                return this;
             }
         };
     }]);

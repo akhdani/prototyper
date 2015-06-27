@@ -2,6 +2,7 @@ alt.application = 'prototyper';
 alt.version = '1.0.0';
 alt.environment = 'development';
 alt.urlArgs = alt.environment == 'production' ? '_v=' + alt.version : '_t=' + (+new Date());
+alt.serverUrl = 'http://localhost:8080/';
 alt.github = {
     user: 'niwasmala',
     project: 'prototyper'
@@ -35,37 +36,44 @@ alt.run(['$log', '$rootScope', '$storage', '$sce', '$q', function($log, $rootSco
     $rootScope.onRouteChanged = function($routeParams){
         var deferred = $q.defer();
 
-        if($routeParams.altaction != 'showcase'){
-            deferred.resolve();
-        }else{
-            if($routeParams.app) alt.application = $routeParams.app;
+        if($routeParams.altaction == 'showcase' || $routeParams.altaction == 'editor'){
+            if($routeParams.app){
+                alt.application = $routeParams.app;
 
-            require([
-                'json!asset/json/' + alt.application + '.json'
-            ], function(json){
-                // try to import from json files, make sure if file is correct
-                var validate = function(json){
-                    var res = true,
-                        message = [];
+                require([
+                    'json!app/' + alt.application + '/prototype.json'
+                ], function(json){
+                    // try to import from json files, make sure if file is correct
+                    var validate = function(json){
+                        var res = true,
+                            message = [];
 
-                    if(message.length != 0) alert('Gagal melakukan import dari file \'asset/json/' + alt.application + '.json\'!\n' + message.join('\n'));
+                        if(message.length != 0) alert('Gagal melakukan import aplikasi ' + alt.application + '!\n' + message.join('\n'));
 
-                    return res;
-                };
+                        return res;
+                    };
 
-                if(!validate(json)) return;
+                    if(!validate(json)) return;
 
-                var storage = $storage(alt.application);
-                storage.get().then(function(response){
-                    storage.save(alt.extend(response.data, json)).then(function(response){
-                        storage.get().then(function(response){
-                            deferred.resolve(response);
+                    var storage = $storage(alt.application);
+                    storage.get().then(function(response){
+                        storage.save(alt.extend(response.data, json)).then(function(response){
+                            storage.get().then(function(response){
+                                deferred.resolve(response);
+                            });
                         });
                     });
+                }, function(error){
+                    // might not found json files but currently still in browser storage
+                    deferred.resolve();
                 });
-            }, function(error){
-                deferred.reject(error);
-            });
+            }else{
+                alt.application = "prototyper";
+                deferred.resolve();
+            }
+        }else{
+            alt.application = "prototyper";
+            deferred.resolve();
         }
 
         return deferred.promise;

@@ -15,8 +15,6 @@ define([
             onclick: '@?'
         },
         link: ['$scope', '$log', '$button', '$element', '$interpolate', '$rootScope', function($scope, $log, $button, $element, $interpolate, $rootScope){
-            console.log('$scope button', $scope);
-
             $scope.config       = alt.extend({
                 title           : $scope.title || '',
                 description     : $scope.description || '',

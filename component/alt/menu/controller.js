@@ -7,6 +7,8 @@ define([
         scope: {
             setting: '=?altMenu',
             class: '@?',
+            brand: '@?',
+            link: '&?',
             menu: '=?'
         },
         link: ['$scope', '$log', function($scope, $log){
@@ -14,6 +16,8 @@ define([
                 wireframe: $scope.wireframe || false,
                 class: $scope.class || 'navbar-inverse navbar-fixed-top',
                 menu: $scope.menu || [],
+                brand: $scope.brand || '',
+                link: $scope.link || angular.noop,
                 template: {
                     id: "",
                     label: "Administrator",
@@ -30,6 +34,10 @@ define([
                     menu.push(item);
                 }
             }, $scope.setting);
+
+            $scope.menu = {
+                submenu: ''
+            };
         }]
     });
 });

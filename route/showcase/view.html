@@ -1,2 +1,31 @@
-<div data-ng-if="menu.length > 0" data-alt-menu data-menu="menu"></div>
-<div data-alt-html="viewer"></div>
+<div data-ng-if="showcase == 'list'" style="margin-left: -20px; margin-right: -20px;">
+    <div data-alt-menu="menu"></div>
+    <header class="jumbotron subhead" id="overview">
+        <div class="container">
+            <h1>Showcase</h1>
+            <p class="lead">List of mockup applications created with Prototyper.</p>
+            <p>
+                <a data-ng-href="{{ alt.baseUrl }}editor" class="btn btn-primary btn-large">Start Making Your Own UI Mockup!</a>
+            </p>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row-fluid" style="padding-top: 30px;">
+            <ul class="thumbnails bootstrap-examples">
+                <li class="span3" style="min-height: 300px;" data-ng-repeat="app in apps" data-ng-style="{true: {'margin-left': '0'}}[$index % 4 == 0]">
+                    <a class="thumbnail" data-ng-href="{{ alt.baseUrl }}showcase?app={{ app.id }}">
+                        <img data-ng-src="{{ app.thumbnail }}" alt="{{ app.name }}" style="height:200px"/>
+                    </a>
+                    <h4>{{ app.name }}</h4>
+                    <p>{{ app.description }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div data-ng-if="showcase == 'app'">
+    <div data-ng-if="menu.menu.length > 0" data-alt-menu="menu"></div>
+    <div data-alt-html="viewer"></div>
+</div>

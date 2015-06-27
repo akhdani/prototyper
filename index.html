@@ -11,20 +11,6 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div style="position:absolute; top: 40px; right: 10px; width: 30%; z-index: 999;">
-            <div data-ng-repeat="toast in $toast.items.slice().reverse()">
-                <div data-alt-toast="toast">
-                    <div data-ng-bind-html-unsafe="toast.message"></div>
-                </div>
-            </div>
-        </div>
-        <div style="position:fixed; top: 40px; left: 30%; width: 40%; z-index: 998;">
-            <div data-ng-repeat="alert in $alert.items">
-                <div data-alt-alert="alert">
-                    <div data-ng-bind-html-unsafe="alert.message"></div>
-                </div>
-            </div>
-        </div>
         <div class="row-fluid">
             <div data-ng-view></div>
         </div>
@@ -37,5 +23,6 @@
     <script type="text/javascript" src="asset/lib/angular-jwt/dist/angular-jwt.min.js"></script>
     <script type="text/javascript" src="asset/lib/alt-angularjs/alt.js"></script>
     <script type="text/javascript" src="config.js"></script>
+    <script>if(alt.environment == 'development') document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=2"></' + 'script>')</script>
 </body>
 </html>

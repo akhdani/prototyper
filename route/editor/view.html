@@ -1,19 +1,106 @@
-<div class="container">
-    <div class="row">
-        <div class="span12">
-            <div data-html="viewer"></div>
+<style type="text/css">
+    body {
+        background-image: url('asset/img/grid-18px-masked.png');
+        background-repeat: repeat-x;
+    }
+</style>
+
+<div data-alt-menu="menu"></div>
+
+<div style="position:fixed; top: 40px; left: 30%; width: 40%; z-index: 998;">
+    <div data-ng-repeat="alert in $alert.items">
+        <div data-alt-alert="alert">
+            {{ alert.message }}
         </div>
     </div>
-    <div class="row">
-        <div class="span6">
-            <div data-html="wireframe" data-wireframe="true" data-droppable="true"
-                 data-on-drop="$scope.dropped(drag, drop, data, target)"></div>
-        </div>
-        <div class="span6">
-            <div data-draggable="true" data-text="alt-fusioncharts">
-                {{ definition.component['alt-fusioncharts'].label }}
+</div>
+
+<div class="bs-docs-example container-fluid">
+    <section data-ng-show="step == 'welcome'">
+        <form class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h1>
+                        Alright! Welcome to Prototyper Editor!
+                    </h1>
+                </div>
             </div>
-            {{ viewer.text }}
+            <div class="row-fluid">
+                <fieldset class="span6">
+                    <legend>
+                        First, let us know what your application called
+                        <span data-alt-blink data-interval="300">_</span>
+                    </legend>
+                    <div class="control-group">
+                        <label class="control-label" for="appid">ID</label>
+                        <div class="controls">
+                            <input type="text" id="appid" class="span4" placeholder="Application ID" data-ng-model="application.id">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="appname">Name</label>
+                        <div class="controls">
+                            <input type="text" id="appname" class="span8" placeholder="Application Name" data-ng-model="application.name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="appdesc">Description</label>
+                        <div class="controls">
+                            <input type="text" id="appdesc" class="span10" placeholder="Description" data-ng-model="application.description">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div data-alt-button="welcome.btncreate"></div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="span6">
+                    <legend>
+                        Or do you want to submit your application to our showcase?
+                    </legend>
+                    <div class="control-group">
+                        <label class="control-label" for="appid">ID</label>
+                        <div class="controls">
+                            <input type="text" id="appid" class="span4" placeholder="Application ID" data-ng-model="application.id">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">File</label>
+                        <div class="controls">
+                            <div data-alt-file="welcome.file"></div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div data-alt-button="welcome.btnupload"></div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </section>
+    <section data-ng-show="step == 'menu'">
+
+    </section>
+    <section data-ng-show="step == 'page'">
+
+    </section>
+    <section data-ng-show="step == 'export'">
+
+    </section>
+    <section data-ng-show="step == 'finish'">
+        <div class="row-fluid">
+            <div class="span12">
+                <h1>
+                    Congratulations! Your application has been submitted to our showcase!
+                </h1>
+            </div>
+            <div class="span12">
+                <h3>
+                    See <a data-ng-href="{{ alt.baseUrl }}showcase">showcase</a> to check your apps!
+                </h3>
+            </div>
         </div>
-    </div>
+    </section>
 </div>
