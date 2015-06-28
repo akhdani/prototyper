@@ -41,6 +41,7 @@ define([
             $scope.setting      = alt.extend({
                 renderAt: $scope.elementid,
                 style: $scope.style || '',
+                class: $scope.class || '',
                 type: $scope.type || '',
                 dataFormat: $scope.format || 'json',
                 width: $scope.width || '100%',

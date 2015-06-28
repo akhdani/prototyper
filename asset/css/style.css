@@ -25,6 +25,13 @@ h3 code {
     display: block !important;
 }
 
+.accordion-body {
+    padding-top: 10px;
+}
+
+.accordion-body.collapse{
+    padding: 0;
+}
 
 /* Tweak navbar brand link to be super sleek
 -------------------------------------------------- */
@@ -330,15 +337,14 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 -------------------------------------------------- */
 
 .show-grid {
+    text-align: left !important;
     margin-top: 10px;
     margin-bottom: 20px;
-    border: dashed 1px #808080;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 .show-grid [class*="span"] {
     background-color: #eee;
-    text-align: center;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -582,8 +588,6 @@ h2 + .row {
 .bs-docs-example {
     position: relative;
     margin: 15px 0;
-    padding: 19px 19px 14px;
-    *padding-top: 19px;
     background-color: #fff;
     border: 1px solid #ddd;
     -webkit-border-radius: 4px;

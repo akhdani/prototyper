@@ -4,7 +4,10 @@ define([
     'component/alt/breadcrumbs/controller',
     'component/alt/blink/controller',
     'component/alt/button/controller',
+    'component/alt/collapse/controller',
     'component/alt/codemirror/controller',
+    'component/alt/draggable/controller',
+    'component/alt/droppable/controller',
     'component/alt/file/controller',
     'component/alt/html/controller',
     'component/alt/fusioncharts/controller',
@@ -284,17 +287,14 @@ define([
                     wireframe: true,
                     text: ''
                 },
-                btnzoomin: $button('zoomin', {
-                    title: '',
+                btnpreview: $button('search', {
+                    title: 'Preview',
+                    description: 'Preview',
                     style: 'margin-left: 5px;',
                     onclick: function(){
-
-                    }
-                }),
-                btnzoomout: $button('zoomout', {
-                    title: '',
-                    onclick: function(){
-
+                        $scope.step.btnsave.onclick().then(function(){
+                            window.open(window.location.origin + window.location.pathname + alt.baseUrl + 'showcase?app=' + alt.application + '&page=' + $scope.page.current.id, '_blank');
+                        });
                     }
                 }),
                 btncompsave: $button('save', {

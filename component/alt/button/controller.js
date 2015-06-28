@@ -11,6 +11,7 @@ define([
             description: '@?',
             icon: '@?',
             href: '@?',
+            target: '@?',
             style: '@?',
             disabled: '@?',
             onclick: '@?'
@@ -20,6 +21,7 @@ define([
                 title           : $scope.title || '',
                 description     : $scope.description || '',
                 href            : $scope.href || '',
+                target          : $scope.target || '_self',
                 href2           : '',
                 icon            : $scope.icon || '',
                 style           : $scope.style || 'display:inline-block;',

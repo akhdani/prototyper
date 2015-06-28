@@ -3,24 +3,24 @@ define([
 ], function(){
     return alt.component({
         name: 'altHtml',
-        templateUrl: null,
+        templateUrl: 'component/alt/html/view.html',
+        transclude: true,
         scope: {
-            config: '=?altHtml',
+            setting: '=?altHtml',
             text: '=?',
             wireframe: '=?'
         },
         link: ['$scope', '$log', '$element', '$compile', '$attrs', function($scope, $log, $element, $compile, $attrs){
             $scope.elementid = 'html' + $scope.$id;
-            $scope.config   =  alt.extend({
+            $scope.setting   =  alt.extend({
                 text        : $scope.text || '',
                 wireframe   : $scope.wireframe || false
-            }, $scope.config);
+            }, $scope.setting);
 
-            $element.attr('id', $scope.elementid);
-
-            $scope.$watch('config.text', function(newvalue, oldvalue){
-                $element.html($scope.config.text);
-                $compile($element.contents())($scope);
+            $scope.$watch('setting.text', function(newvalue, oldvalue){
+                var element = angular.element(document.getElementById($scope.elementid));
+                element.html($scope.setting.text);
+                if(!$scope.setting.wireframe) $compile(element.contents())($scope);
             });
         }]
     });

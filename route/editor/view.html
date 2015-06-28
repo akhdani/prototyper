@@ -3,6 +3,9 @@
         background-image: url('asset/img/grid-18px-masked.png');
         background-repeat: repeat-x;
     }
+    h1{
+        margin-bottom: 40px;
+    }
 </style>
 
 <div data-alt-menu="appmenu"></div>
@@ -330,13 +333,11 @@
                 <div class="span6">
                     <legend>
                         Wireframe
-                        <div data-alt-button="page.btnzoomin" class="pull-right"></div>
-                        <div data-alt-button="page.btnzoomout" class="pull-right"></div>
+                        <div data-alt-button="page.btnpreview" class="pull-right"></div>
                     </legend>
-                    <div class="span12" style="margin-left: 0; margin-bottom: 50px; border: solid 1px #ccc;">
-                        <div data-alt-html="page.current"></div>
+                    <div class="span12" style="margin-left: 0; min-height: 300px; border: solid 1px #ccc;">
+                        <div data-alt-html="page.current" data-alt-droppable></div>
                     </div>
-
                 </div>
                 <div class="span3">
                     <legend>
@@ -344,7 +345,28 @@
                         <div data-alt-button="page.btncompdelete" class="pull-right"></div>
                         <div data-alt-button="page.btncompsave" class="pull-right"></div>
                     </legend>
-                    <legend>Components</legend>
+                    <legend>
+                        Components
+                    </legend>
+                    <div data-alt-collapse data-first="false">
+                        <div data-alt-accordion data-title="Layout">
+                            <div class="container-fluid">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <div data-alt-draggable="true">Container</div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        Row
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-alt-accordion data-title="Chart">
+                            abc
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

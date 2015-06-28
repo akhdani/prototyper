@@ -6,26 +6,28 @@ define([
         templateUrl: 'component/alt/collapse/view.html',
         transclude: true,
         scope: {
-            altCollapse: '=?'
+            setting: '=?altCollapse',
+            first: '=?'
         },
         controller: ['$scope', '$log', function($scope, $log) {
-            $scope.altCollapse = $scope.altCollapse || false;
-            var accordions = $scope.accordions = [];
-
-            this.select = $scope.select = function(accordion) {
-                angular.forEach(accordions, function(a) {
-                    if(a != accordion) a.selected = false;
-                });
-                accordion.selected = !accordion.selected;
-            };
-
-            this.addAccordion = $scope.addAccordion = function(accordion) {
-                accordion.selected = false;
-                if (accordions.length === 0 && $scope.altCollapse) {
-                    $scope.select(accordion);
+            $scope.setting = alt.extend({
+                first: typeof $scope.first !== 'undefined' ? $scope.first : true,
+                accordions: [],
+                add: function(accordion) {
+                    accordion.selected = false;
+                    if ($scope.setting.accordions.length === 0 && $scope.setting.first) {
+                        $scope.setting.select(accordion);
+                    }
+                    $scope.setting.accordions.push(accordion);
+                },
+                select: function(accordion) {
+                    $log.debug(accordion);
+                    angular.forEach($scope.setting.accordions, function(obj) {
+                        if(obj.id != accordion.id) obj.selected = false;
+                    });
+                    accordion.selected = !accordion.selected;
                 }
-                accordions.push(accordion);
-            };
+            }, $scope.setting);
         }]
     });
 });

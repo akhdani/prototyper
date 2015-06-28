@@ -117,8 +117,7 @@ define([
                 'search'            : {
                     'title'         : 'Search',
                     'description'   : 'Search',
-                    'icon'          : 'fa fa-search',
-                    'class'         : 'btn btn-default'
+                    'icon'          : 'fa fa-search'
                 },
                 'preview'           : {
                     'title'         : 'Preview',

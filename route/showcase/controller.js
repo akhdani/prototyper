@@ -1,6 +1,7 @@
 define([
     'json!app/list.json',
     'component/alt/menu/controller',
+    'component/alt/fusioncharts/controller',
     'component/alt/html/controller'
 ], function(apps){
     return ['$scope', '$routeParams', '$log', '$storage', '$rootScope', function($scope, $routeParams, $log, $storage, $rootScope){
