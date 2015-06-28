@@ -49,19 +49,15 @@ define([
                         }
                     };
 
-                    require($scope.page.dependency, function(){
-                        $scope.page.html = $scope.page.html || '<h1>Error 404: Page not found</h1>';
-                        $scope.page.script = $scope.page.script || '';
-                        $scope.viewer.text = $scope.page.html;
+                    $scope.page.html = $scope.page.html || '<h1>Error 404: Page not found</h1>';
+                    $scope.page.script = $scope.page.script || '';
+                    $scope.viewer.text = $scope.page.html;
 
-                        try{
-                            if($scope.page.script) (function($scope){ eval($scope.page.script) })($scope);
-                        }catch(e){
-                            alert('Ada error pada script page! \n' + e.stack);
-                        }
-
-                        $scope.$apply();
-                    });
+                    try{
+                        if($scope.page.script) (function($scope){ eval($scope.page.script) })($scope);
+                    }catch(e){
+                        alert('Ada error pada script page! \n' + e.stack);
+                    }
                 });
                 break;
         }

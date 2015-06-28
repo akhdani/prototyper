@@ -1,11 +1,11 @@
 <ul class="breadcrumb">
     <li data-ng-repeat="crumb in setting.crumbs" class="{{ crumb.class }}">
-        <a data-ng-if="crumb.class != 'active' &amp;&amp; !!crumb.href" data-ng-href="{{ crumb.href || 'javascript:;' }}">
+        <a data-ng-if="crumb.class != 'active'" data-ng-href="{{ crumb.href || 'javascript:;' }}">
             {{ crumb.title }}
         </a>
-        <span data-ng-if="crumb.class == 'active' || !crumb.href">
+        <span data-ng-if="crumb.class == 'active'">
             {{ crumb.title }}
         </span>
-        <span data-ng-show="!$last" class="divider">/</span>
+        <span class="divider" data-ng-show="setting.divider($index, crumb)">{{ setting.divider($index, crumb) }}</span>
     </li>
 </ul>

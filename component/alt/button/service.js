@@ -11,119 +11,80 @@ define([
                     'title'         : 'Login',
                     'title_clicked' : 'Logging in...',
                     'description'   : 'Login',
-                    'icon'          : '',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
                     'class'         : 'btn btn-primary btn-large btn-block',
                     'type'          : 'submit',
-                    'style'         : 'width: 100%;',
-                    'disabled'      : false
+                    'style'         : 'width: 100%;'
                 },
                 'excel'             : {
                     'title'         : 'Excel',
                     'description'   : 'Download Excel',
-                    'icon'          : 'icon-cloud-download',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'class'         : 'btn btn-info hidden-xs',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-cloud-download',
+                    'class'         : 'btn btn-info hidden-xs'
                 },
                 'reset'             : {
                     'title'         : 'Reset',
                     'description'   : 'Reset',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-refresh',
-                    'class'         : 'btn btn-warning',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-refresh',
+                    'class'         : 'btn btn-warning'
                 },
                 'reload'            : {
                     'title'         : 'Reload',
                     'description'   : 'Reload',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-rotate-left',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-rotate-left'
                 },
                 'add'               : {
-                    'title'         : 'Tambah',
-                    'description'   : 'Tambah',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-plus-sign',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'title'         : 'Add',
+                    'description'   : 'Add',
+                    'icon'          : 'fa fa-plus-circle'
                 },
                 'back'              : {
-                    'title'         : 'Kembali',
-                    'description'   : 'Kembali',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-circle-arrow-left',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'title'         : 'Back',
+                    'description'   : 'Back',
+                    'icon'          : 'fa fa-circle-arrow-left',
+                    'class'         : 'btn btn-default'
                 },
                 'save'              : {
-                    'title'         : 'Simpan',
-                    'description'   : 'Simpan',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-save',
-                    'class'         : 'btn btn-success',
-                    'disabled'      : false
+                    'title'         : 'Save',
+                    'description'   : 'Save',
+                    'icon'          : 'fa fa-save',
+                    'class'         : 'btn btn-success'
                 },
                 'print'             : {
                     'title'         : 'Print',
                     'description'   : 'Print',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-print',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-print',
+                    'class'         : 'btn btn-default'
                 },
                 'email'             : {
                     'title'         : 'Email',
                     'description'   : 'Email',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-envelope',
-                    'class'         : 'btn btn-success',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-envelope',
+                    'class'         : 'btn btn-success'
                 },
                 'view'              : {
-                    'title'         : 'Lihat',
-                    'description'   : 'Lihat',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-search',
-                    'class'         : 'btn btn-info',
-                    'disabled'      : false
+                    'title'         : 'View',
+                    'description'   : 'View',
+                    'icon'          : 'fa fa-search',
+                    'class'         : 'btn btn-info'
                 },
                 'edit'              : {
                     'title'         : 'Edit',
                     'description'   : 'Edit',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-edit',
-                    'class'         : 'btn btn-warning',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-edit',
+                    'class'         : 'btn btn-warning'
                 },
                 'remove'            : {
-                    'title'         : 'Hapus',
-                    'description'   : 'Hapus',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-trash',
-                    'class'         : 'btn btn-danger',
-                    'disabled'      : false
+                    'title'         : 'Remove',
+                    'description'   : 'Remove',
+                    'icon'          : 'fa fa-trash',
+                    'class'         : 'btn btn-danger'
                 },
                 'yes'               : {
                     'title'         : 'Ya',
                     'description'   : 'Ya',
                     'onclick'       : angular.noop,
                     'href'          : '',
-                    'icon'          : 'icon-ok',
+                    'icon'          : 'fa fa-ok',
                     'class'         : 'btn btn-success',
                     'disabled'      : false
                 },
@@ -132,264 +93,173 @@ define([
                     'description'   : 'Tidak',
                     'onclick'       : angular.noop,
                     'href'          : '',
-                    'icon'          : 'icon-remove',
+                    'icon'          : 'fa fa-remove',
                     'class'         : 'btn btn-danger',
                     'disabled'      : false
                 },
                 'cancel'            : {
-                    'title'         : 'Batal',
-                    'description'   : 'Batal',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-remove',
-                    'class'         : 'btn btn-danger',
-                    'disabled'      : false
+                    'title'         : 'Cancel',
+                    'description'   : 'Cancel',
+                    'icon'          : 'fa fa-remove',
+                    'class'         : 'btn btn-danger'
                 },
                 'approve'           : {
                     'title'         : 'Approve',
                     'description'   : 'Approve',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-ok',
-                    'class'         : 'btn btn-success',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-ok'
                 },
                 'reject'            : {
                     'title'         : 'Reject',
                     'description'   : 'Reject',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-remove',
-                    'class'         : 'btn btn-danger',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-remove',
+                    'class'         : 'btn btn-danger'
                 },
                 'search'            : {
-                    'title'         : 'Cari',
-                    'description'   : 'Cari',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-search',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'title'         : 'Search',
+                    'description'   : 'Search',
+                    'icon'          : 'fa fa-search',
+                    'class'         : 'btn btn-default'
                 },
                 'preview'           : {
                     'title'         : 'Preview',
                     'description'   : 'Preview',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-file-text-alt',
-                    'class'         : 'btn btn-info',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-file-text-alt',
+                    'class'         : 'btn btn-info'
                 },
                 'open'              : {
-                    'title'         : 'Buka',
-                    'description'   : 'Buka',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-folder-open',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'title'         : 'Open',
+                    'description'   : 'Open',
+                    'icon'          : 'fa fa-folder-open'
                 },
                 'close'             : {
-                    'title'         : 'Tutup',
-                    'description'   : 'Tutup',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : '',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'title'         : 'Close',
+                    'description'   : 'Close',
+                    'class'         : 'btn btn-default'
                 },
                 'next'              : {
-                    'title'         : 'Berikutnya',
-                    'description'   : 'Berikutnya',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : '',
-                    'class'         : 'btn btn-success',
-                    'disabled'      : false
+                    'title'         : 'Next',
+                    'description'   : 'Next',
+                    'icon_position' : 'right',
+                    'icon'          : 'fa fa-chevron-right'
                 },
                 'prev'              : {
-                    'title'         : 'Sebelumnya',
-                    'description'   : 'Sebelumnya',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : '',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'title'         : 'Previous',
+                    'description'   : 'Previous',
+                    'icon'          : 'fa fa-chevron-left'
                 },
                 'zoomin'            : {
                     'title'         : 'Zoom In',
                     'description'   : 'Zoom In',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : '',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-search-plus'
                 },
                 'zoomout'           : {
                     'title'         : 'Zoom Out',
                     'description'   : 'Zoom Out',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : '',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-search-minus'
                 },
                 'start'             : {
-                    'title'         : 'Mulai',
-                    'description'   : 'Mulai',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : '',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'title'         : 'Start',
+                    'description'   : 'Start'
                 },
                 'finish'            : {
-                    'title'         : 'Selesai',
-                    'description'   : 'Selesai',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : '',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'title'         : 'Finish',
+                    'description'   : 'Finish'
                 },
                 'choose'            : {
                     'title'         : 'Pilih',
                     'description'   : 'Pilih',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-check',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-check',
+                    'class'         : 'btn btn-primary'
                 },
                 'unchoose'            : {
-                    'title'         : '',
-                    'description'   : '',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-check-empty',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-check-empty',
+                    'class'         : 'btn btn-default'
                 },
                 'up'                : {
                     'title'         : 'Naik',
                     'description'   : 'Naik',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-arrow-up',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-arrow-up',
+                    'class'         : 'btn btn-default'
                 },
                 'down'              : {
                     'title'         : 'Turun',
                     'description'   : 'Turun',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-arrow-down',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-arrow-down',
+                    'class'         : 'btn btn-default'
                 },
                 'generate'          : {
                     'title'         : 'Generate',
                     'description'   : 'Generate',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-cogs',
-                    'class'         : 'btn btn-success',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-cogs',
+                    'class'         : 'btn btn-success'
                 },
                 'billing'           : {
                     'title'         : 'Tagihan',
                     'description'   : 'Tagihan',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-money',
-                    'class'         : 'btn btn-success',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-money',
+                    'class'         : 'btn btn-success'
                 },
                 'invoice'           : {
                     'title'         : 'Tagihan',
                     'description'   : 'Tagihan',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-money',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-money',
+                    'class'         : 'btn btn-primary'
                 },
                 'bast'           : {
                     'title'         : 'BAST',
                     'description'   : 'BAST',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-file-text',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-file-text'
                 },
                 'barcode'           : {
                     'title'         : 'Barcode',
                     'description'   : 'Barcode',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-barcode',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-barcode'
                 },
                 'qrcode'            : {
                     'title'         : 'QR code',
                     'description'   : 'QR code',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-qrcode',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-qrcode'
                 },
                 'inventarisasi'     : {
                     'title'         : 'Inventarisasi',
                     'description'   : 'Inventarisasi',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-map-marker',
-                    'class'         : 'btn btn-primary',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-map-marker'
                 },
                 'export'            : {
                     'title'         : 'Export',
                     'description'   : 'Export',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-upload',
-                    'class'         : 'btn btn-info',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-upload',
+                    'class'         : 'btn btn-info'
                 },
-                'import'     : {
+                'import'            : {
                     'title'         : 'Import',
                     'description'   : 'Import',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-download',
-                    'class'         : 'btn btn-info',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-download',
+                    'class'         : 'btn btn-info'
                 },
-                'download'     : {
+                'download'          : {
                     'title'         : 'Download',
                     'description'   : 'Download',
-                    'onclick'       : angular.noop,
-                    'href'          : '',
-                    'icon'          : 'icon-download-alt',
-                    'class'         : 'btn btn-default',
-                    'disabled'      : false
+                    'icon'          : 'fa fa-cloud-download'
+                },
+                'upload'            : {
+                    'title'         : 'Upload',
+                    'description'   : 'Upload',
+                    'icon'          : 'fa fa-cloud-upload'
                 },
                 ''                  : {
                     'title'         : '',
                     'description'   : '',
                     'onclick'       : angular.noop,
+                    'class'         : 'btn btn-primary',
                     'href'          : '',
                     'icon'          : '',
+                    'icon_position' : 'left',
                     'style'         : '',
                     'disabled'      : false
                 }
             };
-            return alt.extend(buttons[type], data);
+            return alt.extend(alt.extend(buttons[''], buttons[type]), data);
         };
     }]);
 });

@@ -1,19 +1,19 @@
-&nbsp;&nbsp;
-<input data-ng-if="config.type == 'submit'"
+<input data-ng-if="setting.type == 'submit'"
        type="submit"
-       data-ng-class="config.class || 'btn btn-primary'"
-       value="{{ config.title }}" data-ng-click="config.click()"
-       data-ng-disabled="config.disabled || config.isclicked"/>
+       data-ng-class="setting.class || 'btn btn-primary'"
+       value="{{ setting.title }}" data-ng-click="setting.click()"
+       data-ng-disabled="setting.disabled || setting.isclicked"/>
 
-<a data-ng-if="config.type != 'submit'"
-    data-ng-class="config.class || 'btn btn-primary'"
-    type="button" title="{{ config.description }}"
-    data-ng-click="config.click()"
-    data-ng-href="{{ config.href }}"
-    target="{{ config.target }}"
-    data-ng-disabled="config.disabled || config.isclicked">
+<a data-ng-if="setting.type != 'submit'"
+    data-ng-class="setting.class || 'btn btn-primary'"
+    type="button" title="{{ setting.description }}"
+    data-ng-click="setting.click()"
+    data-ng-href="{{ setting.href }}"
+    target="{{ setting.target }}"
+    data-ng-disabled="setting.disabled || setting.isclicked">
 
-    <i data-ng-class="config.icon"></i>
-    <span data-ng-if="config.title != '' &amp;&amp; config.icon != ''">&nbsp;</span>
-        {{ config.title }}
+    <i data-ng-class="setting.icon" data-ng-if="setting.icon_position == 'left'"></i>
+    <span data-ng-if="setting.title != '' && setting.icon != ''">&nbsp;</span>
+        {{ setting.title }}
+    <i data-ng-class="setting.icon" data-ng-if="setting.icon_position == 'right'"></i>
 </a>

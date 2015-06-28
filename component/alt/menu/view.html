@@ -1,15 +1,15 @@
-<style data-ng-if="setting.menu.length > 0">
+<style>
     body{
         padding-top: 40px;;
     }
 </style>
-<div data-ng-if="setting.menu.length > 0" class="navbar {{ setting.class }}">
+<div class="navbar {{ setting.class }}">
     <div class="navbar-inner">
         <div class="container-fluid">
             <a data-ng-if="setting.brand" class="brand" data-ng-href="{{ setting.link('brand', setting.brand) }}">{{ setting.brand }}</a>
             <ul data-ng-repeat="item in setting.menu" class="nav">
                 <li class="dropdown">
-                    <a data-ng-if="item.page == ''" href="javascript:;" data-ng-click="menu.submenu = menu.submenu == item.id ? '' : item.id; menu.subsubmenu = ''" data-toggle="dropdown">
+                    <a data-ng-if="item.page == ''" href="javascript:;" data-ng-click="menu.submenu = menu.submenu == item.id ? '' : item.id;" data-toggle="dropdown">
                         {{ item.label }}
                         <b class="caret"></b>
                     </a>

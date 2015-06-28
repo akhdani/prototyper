@@ -3,11 +3,11 @@ define([
     'component/ng/table'
 ], function(){
     return alt.component({
-        name: 'altDyntable',
+        name: 'altTableDynamic',
         templateUrl: 'component/alt/dyntable/view.html',
         transclude: true,
         scope: {
-            dyntable: '=?altDyntable'
+            dyntable: '=?altTableDynamic'
         },
         link: ['$scope', '$log', '$button', '$validate', function($scope, $log, $button, $validate){
             $scope.$validate    = $validate;
