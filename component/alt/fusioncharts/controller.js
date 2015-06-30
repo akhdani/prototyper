@@ -39,7 +39,6 @@ define([
             $scope.objchart     = {};
 
             $scope.setting      = alt.extend({
-                renderAt: $scope.elementid,
                 style: $scope.style || '',
                 class: $scope.class || '',
                 type: $scope.type || '',
@@ -50,11 +49,15 @@ define([
             }, $scope.setting);
 
             $scope.reload       = function(){
-                $scope.objchart = new FusionCharts($scope.setting);
-                $scope.objchart.render();
+                $timeout(function(){
+                    $scope.setting.renderAt = document.getElementById($scope.elementid);
+
+                    $scope.objchart = new FusionCharts($scope.setting);
+                    $scope.objchart.render();
+                });
             };
 
-            $timeout($scope.reload);
+            $scope.reload();
         }]
     });
 });

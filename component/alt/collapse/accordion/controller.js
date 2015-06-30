@@ -12,7 +12,7 @@ define([
             class: '@?',
             selected: '=?'
         },
-        link: ['$scope', '$log', function($scope, $log){
+        link: ['$scope', '$log', '$timeout', function($scope, $log, $timeout){
             $scope.setting = alt.extend({
                 id: $scope.$id,
                 title: $scope.title || '',
@@ -21,8 +21,14 @@ define([
                 selected: $scope.selected || false
             }, $scope.setting);
 
-            $scope.collapse = $scope.$parent.$parent.setting;
-            $scope.collapse.add($scope.setting);
+            var findParent = function($scope){
+                return $scope.$component && $scope.$component == 'altCollapse' ? $scope.setting : findParent($scope.$parent);
+            };
+
+            $timeout(function(){
+                $scope.collapse = findParent($scope);
+                $scope.collapse.add($scope.setting);
+            });
         }]
     });
 });

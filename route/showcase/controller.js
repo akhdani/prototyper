@@ -29,7 +29,9 @@ define([
 
             case 'app':
                 // display showcase of specific app
-                $scope.viewer = {};
+                $scope.viewer = {
+                    wireframe: false
+                };
 
                 $storage(alt.application).get().then(function(response){
                     $scope.application = response.data;
@@ -52,7 +54,9 @@ define([
 
                     $scope.page.html = $scope.page.html || '<h1>Error 404: Page not found</h1>';
                     $scope.page.script = $scope.page.script || '';
-                    $scope.viewer.text = $scope.page.html;
+
+                    // replace content editable
+                    $scope.viewer.html = $scope.page.html;
 
                     try{
                         if($scope.page.script) (function($scope){ eval($scope.page.script) })($scope);

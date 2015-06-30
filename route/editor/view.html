@@ -6,6 +6,26 @@
     h1{
         margin-bottom: 40px;
     }
+    .droppable{
+        background-color: #002a80;
+    }
+    .container-fluid{
+        min-height: 30px;
+    }
+    .row-fluid{
+        min-height: 30px;
+    }
+    [class^="span"]{
+        min-height: 30px;
+    }
+    .wireframe{
+        min-height: 300px;
+        border: solid 1px #ccc;
+    }
+    .wireframe [class^="span"]{
+        border: dashed 1px #ccc;
+    }
+
 </style>
 
 <div data-alt-menu="appmenu"></div>
@@ -93,7 +113,6 @@
                     <h1>
                         Well done! Now lets create some menus!
                         <div data-alt-button="step.btnnext" class="pull-right"></div>
-                        <div data-alt-button="step.btnsave" class="pull-right"></div>
                         <div data-alt-button="step.btnprev" class="pull-right"></div>
                     </h1>
                 </div>
@@ -289,7 +308,6 @@
                     <h1>
                         Almost finish! Now lets create some pages!
                         <div data-alt-button="step.btnnext" class="pull-right"></div>
-                        <div data-alt-button="step.btnsave" class="pull-right"></div>
                         <div data-alt-button="step.btnprev" class="pull-right"></div>
                     </h1>
                 </div>
@@ -335,36 +353,24 @@
                         Wireframe
                         <div data-alt-button="page.btnpreview" class="pull-right"></div>
                     </legend>
-                    <div class="span12" style="margin-left: 0; min-height: 300px; border: solid 1px #ccc;">
-                        <div data-alt-html="page.current" data-alt-droppable></div>
+                    <div class="span12" style="margin-left: 0;">
+                        {{ page.current }}
+                        <div data-alt-html="page.current" class="wireframe" data-alt-droppable="true" data-on-drop="$scope.page.ondrop(drag, drop, data, target)" contenteditable="true"></div>
                     </div>
                 </div>
                 <div class="span3">
                     <legend>
-                        Component Editor
-                        <div data-alt-button="page.btncompdelete" class="pull-right"></div>
-                        <div data-alt-button="page.btncompsave" class="pull-right"></div>
-                    </legend>
-                    <legend>
                         Components
                     </legend>
                     <div data-alt-collapse data-first="false">
-                        <div data-alt-accordion data-title="Layout">
+                        <div data-alt-accordion data-ng-repeat="type in page.components.type" data-title="{{ type.label }}">
                             <div class="container-fluid">
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <div data-alt-draggable="true">Container</div>
-                                    </div>
-                                </div>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        Row
+                                <div class="row-fluid" style="padding-bottom: 10px;" data-ng-repeat="componentid in type.components">
+                                    <div style="span12">
+                                        <div data-alt-draggable="true" data-text="{{ componentid }}" data-on-drag-start="$scope.page.ondragstart(element)" data-on-drag-end="$scope.page.ondragend(element)">{{ page.components.component[componentid].label }}</div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div data-alt-accordion data-title="Chart">
-                            abc
                         </div>
                     </div>
                 </div>

@@ -22,15 +22,15 @@ define([
                 e.dataTransfer.setData("dropEffect", $attrs.dropEffect || 'move');
                 e.dataTransfer.setData("text", $attrs.text);
 
-                if($attrs.onDragStart) (function ($scope, e) {
+                if($attrs.onDragStart) (function ($scope, e, element) {
                     eval($attrs.onDragStart);
-                })($scope.$parent, e);
+                })($scope.$parent, e, $element[0]);
             });
 
             $element.bind("dragend", function (e) {
-                if($attrs.onDragEnd) (function ($scope, e) {
+                if($attrs.onDragEnd) (function ($scope, e, element) {
                     eval($attrs.onDragEnd);
-                })($scope.$parent, e);
+                })($scope.$parent, e, $element[0]);
             });
         }]
     });

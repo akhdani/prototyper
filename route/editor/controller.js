@@ -1,5 +1,6 @@
 define([
     'json!app/list.json',
+    'component/definition',
     'component/alt/alert/controller',
     'component/alt/breadcrumbs/controller',
     'component/alt/blink/controller',
@@ -12,10 +13,10 @@ define([
     'component/alt/html/controller',
     'component/alt/fusioncharts/controller',
     'component/alt/menu/controller'
-], function(apps){
+], function(apps, components){
     return [
-        '$scope', '$routeParams', '$log', '$q', '$alert', '$button', '$location', '$storage', '$api', '$timeout',
-        function($scope, $routeParams, $log, $q, $alert, $button, $location, $storage, $api, $timeout){
+        '$scope', '$routeParams', '$log', '$q', '$alert', '$button', '$location', '$storage', '$api', '$timeout', '$compile',
+        function($scope, $routeParams, $log, $q, $alert, $button, $location, $storage, $api, $timeout, $compile){
             $scope.$alert = $alert;
 
             // application menu
@@ -46,12 +47,10 @@ define([
             // step to create application
             $scope.step = function(step, app){
                 // save to storage first
-                $scope.step.btnsave.onclick().then(function(){
-                    $scope.step.get().then(function(){
-                        // change step by changing location
-                        $location.path('editor').search('step', step);
-                        if(app) $location.search('app', alt.application);
-                    });
+                $scope.step.get().then(function(){
+                    // change step by changing location
+                    $location.path('editor').search('step', step);
+                    if(app) $location.search('app', alt.application);
                 });
             };
             $scope.step.get = function(){
@@ -250,8 +249,11 @@ define([
                     onclick: function(){
                         if($scope.menu.current.id != ''){
                             $scope.application.menus[$scope.menu.current.id] = $scope.menu.current.display.menu;
-                            delete $scope.application.menus[$scope.menu.current.previd];
-                            $scope.menu.choose($scope.menu.current.id, $scope.menu.current.display.menu);
+                            if($scope.menu.current.id != $scope.menu.current.previd) delete $scope.application.menus[$scope.menu.current.previd];
+
+                            $scope.step.btnsave.onclick().then(function(){
+                                $scope.menu.choose($scope.menu.current.id, $scope.menu.current.display.menu);
+                            });
                         }else{
                             $alert.add('Menu id not valid', $alert.danger);
                         }
@@ -264,7 +266,10 @@ define([
                         if($scope.application.menus[$scope.menu.current.id]){
                             if(confirm('Are you sure want to delete menu ' + $scope.menu.current.id) + '?'){
                                 delete $scope.application.menus[$scope.menu.current.id];
-                                $scope.menu.btnreset.onclick();
+
+                                $scope.step.btnsave.onclick().then(function(){
+                                    $scope.menu.btnreset.onclick();
+                                });
                             }
                         }else{
                             $alert.add('Menu not found', $alert.danger);
@@ -280,12 +285,13 @@ define([
 
             // step page
             $scope.page = {
+                components: components,
                 current: {
                     id: '',
                     previd: '',
                     menu: '',
                     wireframe: true,
-                    text: ''
+                    html: ''
                 },
                 btnpreview: $button('search', {
                     title: 'Preview',
@@ -297,33 +303,27 @@ define([
                         });
                     }
                 }),
-                btncompsave: $button('save', {
-                    title: '',
-                    onclick: function(){
-
-                    }
-                }),
-                btncompdelete: $button('remove', {
-                    title: '',
-                    style: 'margin-left: 5px;',
-                    onclick: function(){
-
-                    }
-                }),
                 btnreset: $button('reset', {
                     title: '',
                     style: 'margin-left: 5px;',
                     onclick: function(){
-                        $scope.page.choose('', [], '');
+                        $scope.page.choose('', {menu: '', html: ''});
                     }
                 }),
                 btnsave: $button('save', {
                     title: '',
                     onclick: function(){
                         if($scope.page.current.id != ''){
-                            $scope.application.pages[$scope.page.current.id] = $scope.page.current.text;
-                            delete $scope.application.pages[$scope.page.current.previd];
-                            $scope.page.choose($scope.page.current.id, $scope.page.current.text);
+                            $scope.application.pages[$scope.page.current.id] = {
+                                menu: $scope.page.current.menu,
+                                html: $scope.page.current.html
+                            };
+
+                            if($scope.page.current.id != $scope.page.current.previd) delete $scope.application.pages[$scope.page.current.previd];
+
+                            $scope.step.btnsave.onclick().then(function(){
+                                $scope.page.choose($scope.page.current.id, $scope.page.current);
+                            });
                         }else{
                             $alert.add('page id not valid', $alert.danger);
                         }
@@ -336,7 +336,10 @@ define([
                         if($scope.application.pages[$scope.page.current.id]){
                             if(confirm('Are you sure want to delete page ' + $scope.page.current.id) + '?'){
                                 delete $scope.application.pages[$scope.page.current.id];
-                                $scope.page.btnreset.onclick();
+
+                                $scope.step.btnsave.onclick().then(function(){
+                                    $scope.page.btnreset.onclick();
+                                });
                             }
                         }else{
                             $alert.add('Page not found', $alert.danger);
@@ -346,8 +349,51 @@ define([
                 choose: function(id, item, previd){
                     $scope.page.current.id = id;
                     $scope.page.current.previd = previd || id;
-                    $scope.page.current.menu = item.menu;
-                    $scope.page.current.text = item.html;
+                    $scope.page.current.menu = item.menu || '';
+                    $scope.page.current.html = item.html || '';
+                },
+
+                // drag and drop function
+                ondragstart:function(source){
+                    var component = $scope.page.components.component[source.getAttribute('data-text')],
+                        target = document.getElementById($scope.page.current.elementid);
+
+                    if(typeof component.ondragstart === 'function'){
+                        component.ondragstart(source, target);
+                    }else{
+                        angular.element(component.target ? target.querySelectorAll(component.target) : target).toggleClass('droppable');
+                    }
+                },
+                ondragend:function(source){
+                    var component = $scope.page.components.component[source.getAttribute('data-text')],
+                        target = document.getElementById($scope.page.current.elementid);
+
+                    if(typeof component.ondragend === 'function'){
+                        component.ondragend(source, target);
+                    }else{
+                        $timeout(function(){
+                            angular.element(component.target ? target.querySelectorAll(component.target) : target).toggleClass('droppable');
+                        });
+                    }
+                },
+                ondrop: function(drag, drop, data, target){
+                    // try to call component on drop function
+                    var dropEl = angular.element(target),
+                        component = $scope.page.components.component[data];
+
+                    if(dropEl.hasClass('droppable')){
+                        component.html = component.html.replace('{config}', angular.toJson(component.config));
+                        component.html = component.html.replace('{label}', component.label);
+
+                        if(typeof component.ondrop === 'function'){
+                            component.ondrop(dropEl, component.html);
+                        }else{
+                            dropEl.append(component.html);
+                        }
+
+                        $scope.page.current.html = angular.element(document.getElementById($scope.page.current.elementid)).html();
+                        $scope.$apply();
+                    }
                 }
             };
 

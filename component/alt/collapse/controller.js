@@ -21,7 +21,6 @@ define([
                     $scope.setting.accordions.push(accordion);
                 },
                 select: function(accordion) {
-                    $log.debug(accordion);
                     angular.forEach($scope.setting.accordions, function(obj) {
                         if(obj.id != accordion.id) obj.selected = false;
                     });
