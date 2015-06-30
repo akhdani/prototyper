@@ -32,9 +32,8 @@ define([
                     mode: $scope.config.mime
                 });
 
-                var watch = $scope.$watch('config.text', function(newvalue, oldvalue){
-                    $scope.objcodemirror.setValue($scope.config.text);
-                    watch();
+                $scope.$watch('config.text', function(newvalue, oldvalue){
+                    if($scope.config.text != $scope.objcodemirror.getValue()) $scope.objcodemirror.setValue($scope.config.text);
                 });
 
                 $scope.objcodemirror.on('change', function(cm, change){

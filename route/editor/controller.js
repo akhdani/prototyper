@@ -15,8 +15,8 @@ define([
     'component/alt/menu/controller'
 ], function(apps, components){
     return [
-        '$scope', '$routeParams', '$log', '$q', '$alert', '$button', '$location', '$storage', '$api', '$timeout', '$compile',
-        function($scope, $routeParams, $log, $q, $alert, $button, $location, $storage, $api, $timeout, $compile){
+        '$scope', '$routeParams', '$log', '$q', '$alert', '$button', '$location', '$storage', '$api', '$timeout', '$validate', '$uuid',
+        function($scope, $routeParams, $log, $q, $alert, $button, $location, $storage, $api, $timeout, $validate, $uuid){
             $scope.$alert = $alert;
 
             // application menu
@@ -159,14 +159,22 @@ define([
                 btncreate: $button('', {
                     title: 'Create My Application!',
                     onclick: function () {
-                        var isexist = false;
-                        angular.forEach(apps, function(val, key){
-                            isexist = val.id == $scope.application.id || isexist;
-                        });
+                        if(
+                            $validate().rule($validate.required($scope.application.id), 'Application ID must set!')
+                                .rule($validate.required($scope.application.name), 'Application name must set!')
+                                .check()
+                        ){
+                            var isexist = false;
+                            angular.forEach(apps, function(val, key){
+                                isexist = val.id == $scope.application.id || isexist;
+                            });
 
-                        if(!isexist || (isexist && confirm('There is already exist application with id ' + $scope.application.id + '. Do you want to continue and edit previous application?'))){
-                            alt.application = $scope.application.id;
-                            $scope.step('menu', 'app');
+                            if(!isexist || (isexist && confirm('There is already exist application with id ' + $scope.application.id + '. Do you want to continue and edit previous application?'))){
+                                alt.application = $scope.application.id;
+                                $scope.step.btnsave.onclick().then(function(){
+                                    $scope.step('menu', alt.application);
+                                });
+                            }
                         }
                     }
                 }),
@@ -175,9 +183,19 @@ define([
                     onclick: function () {
                         var fr = new FileReader();
                         fr.onload = function(e){
-                            $scope.application = angular.fromJson(e.target.result);
-                            alt.application = $scope.application.id;
-                            $scope.step('upload', alt.application);
+                            var application = angular.fromJson(e.target.result);
+
+                            if(
+                                $validate().rule($validate.required(application.id), 'Application ID must set!')
+                                    .rule($validate.required(application.name), 'Application name must set!')
+                                    .check()
+                            ) {
+                                $scope.application = application;
+                                alt.application = $scope.application.id;
+                                $scope.step.btnsave.onclick().then(function(){
+                                    $scope.step('upload', alt.application);
+                                });
+                            }
                         };
                         fr.readAsText($scope.welcome.file.model);
                     }
@@ -291,6 +309,7 @@ define([
                     previd: '',
                     menu: '',
                     wireframe: true,
+                    isdefault: false,
                     html: ''
                 },
                 btnpreview: $button('search', {
@@ -298,9 +317,11 @@ define([
                     description: 'Preview',
                     style: 'margin-left: 5px;',
                     onclick: function(){
-                        $scope.step.btnsave.onclick().then(function(){
-                            window.open(window.location.origin + window.location.pathname + alt.baseUrl + 'showcase?app=' + alt.application + '&page=' + $scope.page.current.id, '_blank');
-                        });
+                        if($scope.page.current.id){
+                            $scope.page.btnsave.onclick().then(function(){
+                                window.open(window.location.origin + window.location.pathname + alt.baseUrl + 'showcase?app=' + alt.application + '&page=' + $scope.page.current.id, '_blank');
+                            });
+                        }
                     }
                 }),
                 btnreset: $button('reset', {
@@ -313,6 +334,8 @@ define([
                 btnsave: $button('save', {
                     title: '',
                     onclick: function(){
+                        var deferred = $q.defer();
+
                         if($scope.page.current.id != ''){
                             $scope.application.pages[$scope.page.current.id] = {
                                 menu: $scope.page.current.menu,
@@ -320,13 +343,18 @@ define([
                             };
 
                             if($scope.page.current.id != $scope.page.current.previd) delete $scope.application.pages[$scope.page.current.previd];
+                            if($scope.page.current.isdefault) $scope.application.page = $scope.page.current.id;
 
                             $scope.step.btnsave.onclick().then(function(){
                                 $scope.page.choose($scope.page.current.id, $scope.page.current);
+                                deferred.resolve();
                             });
                         }else{
                             $alert.add('page id not valid', $alert.danger);
+                            deferred.reject();
                         }
+
+                        return deferred.promise;
                     }
                 }),
                 btndelete: $button('remove', {
@@ -351,6 +379,7 @@ define([
                     $scope.page.current.previd = previd || id;
                     $scope.page.current.menu = item.menu || '';
                     $scope.page.current.html = item.html || '';
+                    $scope.page.current.isdefault = $scope.application.page == $scope.page.current.id;
                 },
 
                 // drag and drop function
@@ -379,23 +408,82 @@ define([
                 ondrop: function(drag, drop, data, target){
                     // try to call component on drop function
                     var dropEl = angular.element(target),
-                        component = $scope.page.components.component[data];
+                        component = $scope.page.components.component[data],
+                        html = component.html;
 
                     if(dropEl.hasClass('droppable')){
-                        component.html = component.html.replace('{config}', angular.toJson(component.config));
-                        component.html = component.html.replace('{label}', component.label);
+                        var btnselect = component.config ? '<a class="wireframe-hide" contenteditable="false" style="float: right; cursor: pointer; position: relative; right: -5px; background-color: #ccc; padding: 3px;" onclick="angular.element(this).scope().$parent.page.select(this.parentNode)">O</a>' : '',
+                            btnremove = '<a class="wireframe-hide" contenteditable="false" style="float: right; cursor: pointer; position: relative; right: -5px; background-color: #ccc; padding: 3px;" onclick="angular.element(this).scope().$parent.page.remove(this.parentNode)">X</a>';
+
+                        html = html.replace('{config}', angular.toJson(component.config));
+                        html = html.replace('{label}', component.label);
+                        html = html.replace('</', btnremove + btnselect + '</');
 
                         if(typeof component.ondrop === 'function'){
-                            component.ondrop(dropEl, component.html);
+                            component.ondrop(dropEl, html);
                         }else{
-                            dropEl.append(component.html);
+                            dropEl.append(html);
                         }
 
                         $scope.page.current.html = angular.element(document.getElementById($scope.page.current.elementid)).html();
                         $scope.$apply();
                     }
-                }
+                },
+
+                // component function
+                component: {
+                    element: null,
+                    attribute: '',
+                    mode: 'javascript',
+                    mime: 'application/json',
+                    text: ''
+                },
+                remove: function(component){
+                    component.parentNode.removeChild(component);
+                },
+                select: function(component){
+                    var attributes = component.attributes,
+                        attribute = '',
+                        config = '';
+                    for(var i=0; i<attributes.length; i++){
+                        attribute = attributes[i];
+                        if(attribute.nodeName.indexOf('data-alt') == 0){
+                            config = attribute.nodeValue;
+                            break;
+                        }
+                    }
+
+                    if(attribute && config){
+                        $scope.page.component.element = angular.element(component);
+                        $scope.page.component.attribute = attribute.nodeName;
+                        $scope.page.component.text = config;
+                        $scope.$apply();
+                    }
+                },
+                btncompsave: $button('save', {
+                    title: '',
+                    onclick: function(){
+                        if($scope.page.component.element && $scope.page.component.attribute)
+                            $scope.page.component.element.attr($scope.page.component.attribute, $scope.page.component.text);
+                    }
+                }),
+                btncompclear: $button('reset', {
+                    title: '',
+                    style: 'margin-left: 5px;',
+                    onclick: function(){
+                        $scope.page.component.element = null;
+                        $scope.page.component.attribute = '';
+                        $scope.page.component.text = '';
+                    }
+                })
             };
+
+            // do something on component config editor
+            $scope.$watch('page.component.text', function(newvalue, oldvalue){
+                if(newvalue != oldvalue && $scope.page.component.element){
+                    $scope.page.component.element.attr($scope.page.component.attribute, $scope.page.component.text);
+                }
+            });
 
             // step upload
             $scope.upload = {

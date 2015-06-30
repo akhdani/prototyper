@@ -56,6 +56,9 @@ define([
                     $scope.page.script = $scope.page.script || '';
 
                     // replace content editable
+                    $scope.page.html = $scope.page.html.split('<a class="wireframe-hide" contenteditable="false" style="float: right; cursor: pointer; position: relative; right: -5px; background-color: #ccc; padding: 3px;" onclick="angular.element(this).scope().$parent.page.remove(this.parentNode)">X</a>').join('');
+                    $scope.page.html = $scope.page.html.split('<a class="wireframe-hide" contenteditable="false" style="float: right; cursor: pointer; position: relative; right: -5px; background-color: #ccc; padding: 3px;" onclick="angular.element(this).scope().$parent.page.select(this.parentNode)">O</a>').join('');
+
                     $scope.viewer.html = $scope.page.html;
 
                     try{

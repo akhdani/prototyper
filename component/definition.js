@@ -7,6 +7,10 @@ define([
                 components: ['container', 'row', 'span1', 'span2', 'span3', 'span4', 'span5', 'span6', 'span7', 'span8', 'span9', 'span10', 'span11', 'span12']
             },
             {
+                label: 'Typography',
+                components: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+            },
+            {
                 label: 'Chart',
                 components: ['fusioncharts']
             },
@@ -105,11 +109,55 @@ define([
                 target: '.row-fluid'
             },
 
+            // typography
+            h1: {
+                thumbnail: '',
+                label: 'H1',
+                html: '<h1>H1</h1>',
+                target: '[class^="span"]'
+            },
+            h2: {
+                thumbnail: '',
+                label: 'H2',
+                html: '<h2>H2</h2>',
+                target: '[class^="span"]'
+            },
+            h3: {
+                thumbnail: '',
+                label: 'H3',
+                html: '<h3>H3</h3>',
+                target: '[class^="span"]'
+            },
+            h4: {
+                thumbnail: '',
+                label: 'H4',
+                html: '<h4>H4</h4>',
+                target: '[class^="span"]'
+            },
+            h5: {
+                thumbnail: '',
+                label: 'H5',
+                html: '<h5>H5</h5>',
+                target: '[class^="span"]'
+            },
+            h6: {
+                thumbnail: '',
+                label: 'H6',
+                html: '<h6>H6</h6>',
+                target: '[class^="span"]'
+            },
+            p: {
+                thumbnail: '',
+                label: 'Paragraph',
+                html: '<p>Paragraph</p>',
+                target: '[class^="span"]'
+            },
+
             // chart
             fusioncharts: {
                 thumbnail: '',
                 label: 'FUSIONCHARTS',
-                html: '<div data-alt-fusioncharts=\'{config}\'>{label}</div>',
+                html: '<div data-alt-fusioncharts=\'{config}\' contenteditable="false">{label}</div>',
                 target: '[class^="span"]',
                 config: {
                     type: "pie2d",
