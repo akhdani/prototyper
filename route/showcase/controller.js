@@ -1,9 +1,9 @@
 define([
     'json!app/list.json',
+    'component/definition',
     'component/alt/menu/controller',
-    'component/alt/fusioncharts/controller',
     'component/alt/html/controller'
-], function(apps){
+], function(apps, components){
     return ['$scope', '$routeParams', '$log', '$storage', '$rootScope', function($scope, $routeParams, $log, $storage, $rootScope){
         $scope.showcase = alt.application === 'prototyper' ? 'list' : 'app';
         $scope.apps = apps;

@@ -41,28 +41,39 @@ alt.run(['$log', '$rootScope', '$storage', '$sce', '$q', function($log, $rootSco
                 alt.application = $routeParams.app;
 
                 require([
-                    'json!app/' + alt.application + '/prototype.json'
-                ], function(json){
-                    // try to import from json files, make sure if file is correct
-                    var validate = function(json){
-                        var res = true,
-                            message = [];
+                    'json!app/' + alt.application + '/prototype.json',
+                    'component/definition'
+                ], function(json, components){
+                    // load all component dependencies first
+                    var deps = [];
+                    angular.forEach(components.component, function(value, key){
+                        if(value.dependency) deps.push(value.dependency);
+                    });
 
-                        if(message.length != 0) alert('Gagal melakukan import aplikasi ' + alt.application + '!\n' + message.join('\n'));
+                    // load dependencies
+                    require(deps, function(){
+                        // try to import from json files, make sure if file is correct
+                        var validate = function(json){
+                            var res = true,
+                                message = [];
 
-                        return res;
-                    };
+                            if(message.length != 0) alert('Gagal melakukan import aplikasi ' + alt.application + '!\n' + message.join('\n'));
 
-                    if(!validate(json)) return;
+                            return res;
+                        };
 
-                    var storage = $storage(alt.application);
-                    storage.get().then(function(response){
-                        storage.save(alt.extend(response.data, json)).then(function(response){
-                            storage.get().then(function(response){
-                                deferred.resolve(response);
+                        if(!validate(json)) return;
+
+                        var storage = $storage(alt.application);
+                        storage.get().then(function(response){
+                            storage.save(alt.extend(response.data, json)).then(function(response){
+                                storage.get().then(function(response){
+                                    deferred.resolve(response);
+                                });
                             });
                         });
                     });
+
                 }, function(error){
                     // might not found json files but currently still in browser storage
                     deferred.resolve();

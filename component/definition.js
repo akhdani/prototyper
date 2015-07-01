@@ -155,6 +155,7 @@ define([
 
             // chart
             fusioncharts: {
+                dependency: 'component/alt/fusioncharts/controller',
                 thumbnail: '',
                 label: 'FUSIONCHARTS',
                 html: '<div data-alt-fusioncharts=\'{config}\' contenteditable="false">{label}</div>',

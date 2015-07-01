@@ -39,7 +39,40 @@ app.post('/api/upload', function(req, res, next){
                                 return;
                             }
 
-                            res.json({code: 0, message: 'Your works is uploaded!'});
+                            // update list.json
+                            var list_path = path.join(process.env.PWD, '/app/list.json');
+                            fs.readFile(list_path, function(err, data) {
+                                var list = JSON.parse(data),
+                                    index = -1;
+
+                                for(var i=0; i<list.length; i++){
+                                    if(list[i].id == data.id){
+                                        index = i;
+                                        break;
+                                    }
+                                }
+
+                                var app = {
+                                    id: data.id,
+                                    name: data.name,
+                                    description: data.description
+                                };
+
+                                if(index == -1){
+                                    list.push(app);
+                                }else{
+                                    list[index] = app;
+                                }
+
+                                fs.writeFile(list_path, list, function(err){
+                                    if(err){
+                                        res.json(err);
+                                        return;
+                                    }
+
+                                    res.json({code: 0, message: 'Your works is uploaded!'});
+                                });
+                            });
                         });
                     });
                 });

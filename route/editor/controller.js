@@ -160,8 +160,8 @@ define([
                     title: 'Create My Application!',
                     onclick: function () {
                         if(
-                            $validate().rule($validate.required($scope.application.id), 'Application ID must set!')
-                                .rule($validate.required($scope.application.name), 'Application name must set!')
+                            $validate()
+                                .rule($validate.required($scope.application.id), 'Application ID must set!')
                                 .check()
                         ){
                             var isexist = false;
@@ -186,8 +186,8 @@ define([
                             var application = angular.fromJson(e.target.result);
 
                             if(
-                                $validate().rule($validate.required(application.id), 'Application ID must set!')
-                                    .rule($validate.required(application.name), 'Application name must set!')
+                                $validate()
+                                    .rule($validate.required(application.id), 'Application ID must set!')
                                     .check()
                             ) {
                                 $scope.application = application;
