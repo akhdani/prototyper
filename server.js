@@ -6,7 +6,7 @@ var express = require("express"),
     port = process.env.PORT || 8080;
 
 // Set static folder
-app.use(express.static("./"));
+app.use(express.static("./src/client"));
 
 // CORS Header
 app.use(function(req, res, next){
@@ -19,9 +19,9 @@ app.use(function(req, res, next){
 app.post('/api/upload', function(req, res, next){
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-        var new_path = path.join(process.env.PWD, '/app/', fields.app + '/prototype.json'),
+        var new_path = path.join(process.env.PWD, '/src/client/app/', fields.app + '/prototype.json'),
             create = function(data){
-                fs.mkdir(path.join(process.env.PWD, '/app/', fields.app), function(err){
+                fs.mkdir(path.join(process.env.PWD, '/src/client/app/', fields.app), function(err){
                     if(err){
                         res.json(err);
                         return;
@@ -40,7 +40,7 @@ app.post('/api/upload', function(req, res, next){
                             }
 
                             // update list.json
-                            var list_path = path.join(process.env.PWD, '/app/list.json');
+                            var list_path = path.join(process.env.PWD, '/src/client/app/list.json');
                             fs.readFile(list_path, function(err, data) {
                                 var list = JSON.parse(data),
                                     index = -1;

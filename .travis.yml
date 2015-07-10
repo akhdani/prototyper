@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '0.11'
+- '0.10'
+deploy:
+  provider: heroku
+  api_key:
+    secure: c4Cu8QK4vWcPHF9uLFKQ7tU/VnReGjtG1rgoOqwmR5gEKq4sWJzaOPdhmkuiI5YqaMr+D0nqoctkJm49mqGS2NRKRBTjO5Czk+pDDxEXgKzl/T6+bvV2SXVb9qj0CDZaCLlkPOV+EA/N4ba5uH/5AfUZKR94Qs/2K4rGurVvtQFQvto/7YzQ8l8WPeFOdtgKsTL3h99uTkxTXZFSGVdS+fG/Y1zZaEkkG5ZtoEIEcSV2wpnn+qF0ExdwA0F1xtlrkPntjXCfwYwUkXACj1nAE1e1O6eHr7MXQvwbfOS3hq2rfKKWJe9cZU5FrS+vPDws/PLcCvlfxtueCgdsey1eL1VJqu/GfF01ErCgYw9AIV3UHl5YjN7/IA7LDACkKfHR18YqTkmrmjBJkNUzhpr7zx0FHNoAmPWf6+Y9zRbki3bCmi50MgYZ78vxDaBvaqDv5Y7sCTwDI6mo09cHShH1sq7eOZl5vAEcmISrS830MQl9scikmIqxGxKUeCUPLFnU7FnM0oIGTmoVLs/kYTHVNCk/KQe8GE3EhjQ11zzomrso7qhqEz6LWWDiOr2HdD8zCiqBq+N3qY223QT/lNLYjG3y7aVxk1HsXEgn8mMvlFIJV/0bb4HoWOm1i5Bw2BgmY9tLQq8XTCqCd/YSorDN4nhQjiwcvx8P4LUNZ79I5nE=
+  app: ars-prototyper
+  on:
+    repo: akhdani/prototyper
+notifications:
+  email: false
