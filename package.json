@@ -26,9 +26,9 @@
   }],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/niwasmala/prototyper/issues"
+    "url": "https://github.com/akhdani/prototyper/issues"
   },
-  "homepage": "https://github.com/niwasmala/prototyper",
+  "homepage": "https://github.com/akhdani/prototyper",
   "dependencies": {
     "bower": "^1.4.1",
     "express": "^4.12.4",
